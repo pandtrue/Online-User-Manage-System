@@ -23,6 +23,7 @@ public class LoginServlet extends HttpServlet {
 		out.println("<form action='/UserManagement/LoginCheckServlet' method='post'>");
 		out.println("User &nbsp;ID:<input type='text' name='id'/><br/>");
 		out.println("Password:<input type='password' name='password'/><br/>");
+		out.println("Verification:<input type='text' name='varification'/><img src='/UserManagement/GenerateRandomPicture'><br/>");
 		out.println("<input type='submit' value='Login'/><br/>");
 		out.println("</form>");
 		String errInfo = (String) request.getAttribute("err");
