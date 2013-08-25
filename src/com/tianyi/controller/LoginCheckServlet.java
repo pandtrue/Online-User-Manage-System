@@ -2,8 +2,10 @@ package com.tianyi.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpCookie;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ public class LoginCheckServlet extends HttpServlet {
 		String userID = request.getParameter("id");
 		String password = request.getParameter("password");
 		String varification = request.getParameter("varification");
+		String keepInfo = request.getParameter("keepInfo");
 		
 		// Receive real generated verification from session
 		String generatedVerification = (String) request.getSession().getAttribute("number");
@@ -49,6 +52,28 @@ public class LoginCheckServlet extends HttpServlet {
 				// Save session for later use, prevent user from illegal login
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
+				
+				// Set attribute to servlet context to show the number of people browse the website
+				String viewedNumber = (String) this.getServletContext().getAttribute("viewedNumber");
+				if(viewedNumber==null) {
+					// First time being viewed
+					this.getServletContext().setAttribute("viewedNumber", "1");
+				} else {
+					this.getServletContext().setAttribute("viewedNumber", String.valueOf(Integer.parseInt(viewedNumber)+1));
+				}
+				
+				// Every info is correct, remember info in this computer
+				if(keepInfo!=null && keepInfo.equals("keep")) {
+					// Store info in cookie
+					Cookie cookie = new Cookie("username",userID);
+					Cookie cookie2 = new Cookie("password",password);
+					cookie.setMaxAge(3600*24*7);
+					cookie2.setMaxAge(3600*24*7);
+					response.addCookie(cookie);
+					response.addCookie(cookie2);
+				}
+				
+				// Jump to main interface
 				request.getRequestDispatcher("/MainInterface").forward(request,response);
 			} else {
 				request.setAttribute("err", "UserID or password not correct!");

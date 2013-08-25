@@ -65,6 +65,21 @@
     <servlet-name>GenerateRandomPicture</servlet-name>
     <servlet-class>com.tianyi.util.GenerateRandomPicture</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>InitializeServlet</servlet-name>
+    <servlet-class>com.tianyi.util.InitializeServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SearchUserView</servlet-name>
+    <servlet-class>com.tianyi.view.SearchUserView</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -114,6 +129,14 @@
   <servlet-mapping>
     <servlet-name>GenerateRandomPicture</servlet-name>
     <url-pattern>/GenerateRandomPicture</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InitializeServlet</servlet-name>
+    <url-pattern>/InitializeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchUserView</servlet-name>
+    <url-pattern>/SearchUserView</url-pattern>
   </servlet-mapping>	
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

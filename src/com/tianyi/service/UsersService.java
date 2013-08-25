@@ -44,6 +44,23 @@ public class UsersService {
 		return user;
 	}
 	
+	// Get user by exact name
+	public ArrayList getUserByExactName(String name) {
+		String sql = "Select * from users where username=?";
+		String[] parameters={name};
+		ArrayList<User> user = SqlHelper.executeQuery(sql, parameters);
+		return user;
+	}
+	
+	// Get user by fuzzy name
+	public ArrayList getUserByFuzzyName(String name) {
+		String sql = "select * from users where username like ?";
+		//String sql = "select * from users where username like '%"+name+"%'";
+		String[] parameters={"%"+name+"%"};
+		ArrayList<User> user = SqlHelper.executeQuery(sql, parameters);
+		return user;
+	}
+	
 	// Get page Count
 	public int getPageCount(int pageSize) {
 		String sql = "Select * from users";

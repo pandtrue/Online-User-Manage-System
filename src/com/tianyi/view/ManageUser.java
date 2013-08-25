@@ -2,16 +2,13 @@ package com.tianyi.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tianyi.domain.User;
 import com.tianyi.service.UsersService;
@@ -23,6 +20,9 @@ public class ManageUser extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
+		// Get user name from session
+		String username = ((User) request.getSession().getAttribute("user")).getName();
+		
 		// JavaScript use to control the page jumping
 		out.println("<script type='text/javascript' language='javascript'>");
 		out.println("function gotoPage() { var pageWant = document.getElementById('pageWant').value;" +
@@ -30,9 +30,8 @@ public class ManageUser extends HttpServlet {
 				"function confirmation(){return  window.confirm('Are you sure to delete this user?');}");
 //		return window.confirm('Are you sure to delete this user?');
 		out.println("</script>");
-		out.println("<img src='image/Welcome_Friends.jpg' width='300px'/> Hello XX! " +
-				"<a href='/UserManagement/MainInterface'>Back to Home Page</a> " +
-				"<a href='/UserManagement/LoginServlet'>Logout</a><hr/>");
+		out.println("<img src='image/Welcome_Friends.jpg' width='300px'/> " +
+				"<a href='/UserManagement/MainInterface'>Back to Home Page</a><hr/>");
 
 		out.println("<h1>Manage User</h1>");
 		
@@ -85,7 +84,10 @@ public class ManageUser extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		out.println("<hr/><img src='image/thankyou.jpg' width='300px'/>");
+		// Get number of viewed
+		int viewedNumber = Integer.parseInt((String) this.getServletContext().getAttribute("viewedNumber"));
+		out.println("<hr/>This website has been viewed " + viewedNumber + " times<br/>");
+		out.println("<img src='image/thankyou.jpg' width='300px'/>");
 
 	}
 

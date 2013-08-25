@@ -18,7 +18,8 @@ public class UpdateUserView extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		out.println("<img src='image/Welcome_Friends.jpg' width='300px'/><hr/>");
+		out.println("<img src='image/Welcome_Friends.jpg' width='300px'/>" + 
+				"<a href='/UserManagement/MainInterface'>Back to Home Page</a><hr/>");
 		out.println("<h3>Update User Information</h3>");
 		User user = (User) request.getAttribute("user");
 		out.println("<form action='/UserManagement/UserProcessingServlet?type=update' method='post'>");

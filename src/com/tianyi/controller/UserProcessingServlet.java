@@ -2,6 +2,7 @@ package com.tianyi.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -100,6 +101,17 @@ public class UserProcessingServlet extends HttpServlet {
 				request.setAttribute("info", "Error occued during add!");
 				request.getRequestDispatcher("/Error").forward(request, response);
 			}
+		} else if(type.equals("search")) {
+			String username = request.getParameter("searchName");
+			String searchType = request.getParameter("searchType");
+			if(searchType.equals("exact")) {
+				ArrayList users = usersService.getUserByExactName(username);
+				request.setAttribute("users", users);
+			} else if(searchType.equals("fuzzy")) {
+				ArrayList users = usersService.getUserByFuzzyName(username);
+				request.setAttribute("users", users);			
+			}
+			request.getRequestDispatcher("/SearchUserView").forward(request, response);
 		}
 	}
 
