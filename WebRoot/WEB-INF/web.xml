@@ -78,6 +78,12 @@
     <servlet-name>SearchUserView</servlet-name>
     <servlet-class>com.tianyi.view.SearchUserView</servlet-class>
   </servlet>
+  <filter>
+  	<filter-name>MyFilter</filter-name>
+  	<filter-class>com.tianyi.filter.MyFilter</filter-class>
+  </filter>
+  
+
 
 
 
@@ -138,6 +144,11 @@
     <servlet-name>SearchUserView</servlet-name>
     <url-pattern>/SearchUserView</url-pattern>
   </servlet-mapping>	
+  <filter-mapping>
+	<filter-name>MyFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
